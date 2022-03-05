@@ -1,0 +1,97 @@
+<!-- <!DOCTYPE html> -->
+<html>
+
+<head>
+    <title>Schedule Compute</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"> </script>
+<script type="text/javascript">
+var default_reference_date = "2022/2/8";
+var reference_schedule_job = "1";
+$(document).ready(function() {
+    var nowDate = new Date();
+    // var reference_date = Date.parse(2022/2/26);
+    // reference_date.setFullYear(2022,2,26);
+    $("#date").val(nowDate.toLocaleDateString());
+    $("#reference_date").val(default_reference_date);
+    $("#reference_schedule_job").val(reference_schedule_job - 1);
+    compute_job();
+});
+$(function() {
+    $("#btn_jump").click(function() {
+        compute_job();
+    });
+
+})
+
+function compute_job() {
+    var reference_date = Date.parse($("#reference_date").val());
+    var setDate = Date.parse($("#date").val());
+    var day = ((setDate - reference_date) / (1000 * 60 * 60 * 24)).toString().split(".")[0];
+    var space_day = Math.abs(parseInt(day));
+    console.log("间隔天数:" + space_day);
+    var reference_schedule_job = parseInt($("#reference_schedule_job").val());
+    console.log("参考日期点位:" + reference_schedule_job);
+    var offset = space_day % 6;
+    var res_job = "";
+    if (day >= 0) {
+        res_job = (offset + reference_schedule_job) % 6;
+    } else {
+        res_job = Math.abs(reference_schedule_job - offset);
+        if (reference_schedule_job < offset) {
+            res_job = 6 - res_job;
+        }
+    }
+    console.log("res_job:" + res_job);
+    $("#schedule_job").val(res_job);
+}
+</script>
+
+<body>
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <center><strong>排班计算</strong></center>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <strong>参考日期:</strong>
+                        </span>
+                        <input class="form-control ng-pristine ng-invalid ng-invalid-required valid" type="text" placeholder="如2021-7-13" id="reference_date">
+                    </div>
+                    <select id="reference_schedule_job" class="form-control" style="background-color:#F7F7F7;width:110px;margin-bottom:7px" name="interface">
+                        <option value="0">白班1</option>
+                        <option value="1">白班2</option>
+                        <option value="2">夜班1</option>
+                        <option value="3">夜班2</option>
+                        <option value="4">休班1</option>
+                        <option value="5">休班2</option>
+                    </select>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <strong>计算日期:</strong>
+                        </span>
+                        <input class="form-control ng-pristine ng-invalid ng-invalid-required valid" type="text" placeholder="" id="date">
+                    </div>
+                    <select id="schedule_job" class="form-control" style="background-color:#F7F7F7;width:110px;margin-bottom:7px" name="interface">
+                        <option value="0">白班1</option>
+                        <option value="1">白班2</option>
+                        <option value="2">夜班1</option>
+                        <option value="3">夜班2</option>
+                        <option value="4">休班1</option>
+                        <option value="5">休班2</option>
+                    </select>
+                </div>
+                <input id="btn_jump" class="btn btn-lg btn-primary btn-block" data-loading-text="计算中....." type="button" value="计算排班" />
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
