@@ -16,7 +16,7 @@ $(document).ready(function() {
     var nowDate = new Date();
     // var reference_date = Date.parse(2022/2/26);
     // reference_date.setFullYear(2022,2,26);
-    $("#date").val(nowDate.toLocaleDateString());
+    $("#date").val(nowDate.toLocaleDateString("zh"));
     $("#reference_date").val(default_reference_date);
     $("#reference_schedule_job").val(reference_schedule_job - 1);
     compute_job();
