@@ -138,12 +138,21 @@
         let year =nowDate.getFullYear();
         let month = nowDate.getMonth("zh")+1;
         let date= nowDate.getDate();
-        // let hour= nowDate.getHours();
-        // let minute= nowDate.getMinutes();
-        // let second  = nowDate.getSeconds();
-        currentTime= year+"-"+month+"-"+date+" *";
-        // currentTime= year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second;
-        currentTime +=nowDate.toLocaleTimeString();
+        let hour= nowDate.getHours().toString();
+        let minute= nowDate.getMinutes().toString();
+        let second  = nowDate.getSeconds().toString();
+        if(hour.length<2){
+            hour ="0"+hour.toString();
+        }
+        if(minute.length<2){
+            minute ="0"+minute;
+        }
+        if(second.length<2){
+            second ="0"+second;
+        }
+        // currentTime= year+"-"+month+"-"+date+" *";
+        currentTime= year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second;
+        // currentTime +=nowDate.toLocaleTimeString();
         // currentTime +=nowDate.toLocaleTimeString();
         return currentTime
     }
