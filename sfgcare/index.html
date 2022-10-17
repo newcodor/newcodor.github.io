@@ -135,14 +135,16 @@
     function getCurrentTime(){
         var nowDate = new Date();
         var currentTime;
-        // let year =nowDate.getFullYear();
-        // let month = nowDate.getMonth("zh")+1;
-        // let date= nowDate.getDate();
+        let year =nowDate.getFullYear();
+        let month = nowDate.getMonth("zh")+1;
+        let date= nowDate.getDate();
         // let hour= nowDate.getHours();
         // let minute= nowDate.getMinutes();
         // let second  = nowDate.getSeconds();
+        currentTime= year+"-"+month+"-"+date+" ";
         // currentTime= year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second;
-        currentTime=nowDate.toLocaleString().replaceAll("/","-");
+        currentTime +=nowDate.toLocaleTimeString();
+        // currentTime +=nowDate.toLocaleTimeString();
         return currentTime
     }
 </script>
